@@ -4,7 +4,7 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection, scores) {
-    
+
     console.log(`Player has chosen ${playerSelection} and the computer has chosen ${computerSelection}.`)
     
     if (playerSelection === computerSelection) {
@@ -53,33 +53,14 @@ function game() {
         'Computer': 0
     };
 
-    const numberOfGames = parseInt(prompt("Enter the number of rounds you would like to play: ")); 
+    const buttons = document.querySelectorAll('button'); 
 
-    for (let i = 1; i < numberOfGames + 1; i++) {
-        let playerChoice = prompt('Enter your choice (Rock, Paper, or Scissors): '); 
-        playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1); 
-        while (playerChoice !== 'Rock' && playerChoice !== 'Paper' && playerChoice !== 'Scissors') {
-            playerChoice = prompt('Invalid Choice. Please enter Rock, Paper, or Scissors: '); 
-            playerChoice = playerChoice[0].toUpperCase() + playerChoice.slice(1); 
-        }
-
-        console.log(`------------------- Round ${i} -------------------`); 
-        scores = playRound(playerChoice, getComputerChoice(), scores); 
-
-        console.log(`Player Wins: ${scores['Player']} | Computer Wins: ${scores['Computer']}`); 
-    }
-
-    console.log(`------------------- Game Results -------------------`);
-    if (scores['Player'] === scores['Computer']){
-        console.log("It's a Tie!"); 
-    }
-    else if (scores['Player'] > scores['Computer']){
-        console.log('You Win!'); 
-    }
-    else {
-        console.log('Computer Wins!');
-    }
-         
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            scores = playRound(button.innerText, getComputerChoice(), scores);
+            console.log(`Player Wins: ${scores['Player']} | Computer Wins: ${scores['Computer']}`);
+        })
+    }) 
 }
 
 game(); 
