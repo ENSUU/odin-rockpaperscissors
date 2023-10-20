@@ -54,11 +54,14 @@ function game() {
     };
 
     const buttons = document.querySelectorAll('button'); 
+    const playerScore = document.querySelector('.playerScore h3'); 
+    const computerScore = document.querySelector('.computerScore h3');
 
     buttons.forEach(button => {
         button.addEventListener('click', () => {
             scores = playRound(button.innerText, getComputerChoice(), scores);
-            console.log(`Player Wins: ${scores['Player']} | Computer Wins: ${scores['Computer']}`);
+            playerScore.innerText = scores['Player']; 
+            computerScore.innerText = scores['Computer'];
         })
     }) 
 }
