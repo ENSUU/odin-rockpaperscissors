@@ -38,3 +38,7 @@ button:hover {
     width: 150px;
     padding: 2rem 0;
 }
+
+.roundResult {
+    padding: 2rem 0;
+}

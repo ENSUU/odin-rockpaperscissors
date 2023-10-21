@@ -5,41 +5,44 @@ function getComputerChoice() {
 
 function playRound(playerSelection, computerSelection, scores) {
 
-    console.log(`Player has chosen ${playerSelection} and the computer has chosen ${computerSelection}.`)
+    const roundResults = document.querySelector('body > div.container > div.roundResult > h2'); 
+    roundResults.innerText = `Player chose ${playerSelection}. CPU chose ${computerSelection}.`
+    
+    const roundWinner = document.querySelector("body > div.container > div.roundResult > h3"); 
     
     if (playerSelection === computerSelection) {
-        console.log("It's a tie."); 
+        roundWinner.innerText = "It's a tie. Go again!"; 
         return scores; 
     }
 
     if (playerSelection === 'Rock') {
         if (computerSelection === 'Paper') {
             scores['Computer'] += 1;
-            console.log('You Lose! Paper beats Rock');
+            roundWinner.innerText = 'You Lose!';
         }
         else {
             scores['Player'] += 1;
-            console.log('You Win! Rock beats Scissors');
+            roundWinner.innerText = 'You Win!';
         } 
     }
     else if (playerSelection === 'Paper') {
         if (computerSelection === 'Rock') {
             scores['Player'] += 1;
-            console.log('You Win! Paper beats Rock');
+            roundWinner.innerText = 'You Win!';
         }
         else {
             scores['Computer'] += 1;
-            console.log('You Lose! Scissors beats Paper');
+            roundWinner.innerText= 'You Lose!';
         }
     }
     else {
         if (computerSelection === 'Rock') {
             scores['Computer'] += 1;
-            console.log('You Lose! Rock beats Scissors');
+            roundWinner.innerText = 'You Lose!';
         }
         else {
             scores['Player'] += 1;
-            console.log('You Win! Scissors beats Paper');
+            roundWinner.innerText = 'You Win!';
         }
     }
 
@@ -62,8 +65,21 @@ function game() {
             scores = playRound(button.innerText, getComputerChoice(), scores);
             playerScore.innerText = scores['Player']; 
             computerScore.innerText = scores['Computer'];
+
+            if (scores['Player'] === 5 || scores['Computer'] === 5) {
+                const controls = document.querySelector('.controls'); 
+                controls.remove(); 
+        
+                const roundResults = document.querySelector('body > div.container > div.roundResult > h2'); 
+                let winner = scores['Player'] === 5 ? 'Player' : 'CPU'; 
+                roundResults.innerText = `${winner} wins the game!`; 
+
+                const roundWinner = document.querySelector("body > div.container > div.roundResult > h3");
+                roundWinner.innerText = "";
+            }
         })
     }) 
+
 }
 
 game(); 
